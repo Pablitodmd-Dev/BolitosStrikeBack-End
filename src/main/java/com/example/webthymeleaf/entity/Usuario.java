@@ -12,7 +12,7 @@ public class Usuario {
     private Long id;
 
     @Column(nullable = false)
-    private String nombre;
+    private String username;
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -25,8 +25,11 @@ public class Usuario {
     private boolean aceptaTerminos;
 
     private int totalBolitos;
+    
+    @Column(nullable = false)
+    private Boolean deleted=false;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ParticipacionEvento> participaciones = new ArrayList<>();
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -47,19 +50,20 @@ public class Usuario {
     public Usuario() {
 		super();
 	}
-    
-	public Usuario(Long id, String nombre, String email, String password, String rol, boolean aceptaTerminos,
-			int totalBolitos, List<ParticipacionEvento> participaciones, List<Notificacion> notificaciones,
-			List<CanjeRecompensa> canjes, List<HistorialBolitos> historialBolitos, List<UsoPromocion> usos,
-			List<Reserva> reservas) {
+
+	public Usuario(Long id, String username, String email, String password, String rol, boolean aceptaTerminos,
+			int totalBolitos, Boolean deleted, List<ParticipacionEvento> participaciones,
+			List<Notificacion> notificaciones, List<CanjeRecompensa> canjes, List<HistorialBolitos> historialBolitos,
+			List<UsoPromocion> usos, List<Reserva> reservas) {
 		super();
 		this.id = id;
-		this.nombre = nombre;
+		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.rol = rol;
 		this.aceptaTerminos = aceptaTerminos;
 		this.totalBolitos = totalBolitos;
+		this.deleted = deleted;
 		this.participaciones = participaciones;
 		this.notificaciones = notificaciones;
 		this.canjes = canjes;
@@ -76,12 +80,12 @@ public class Usuario {
 		this.id = id;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getEmail() {
@@ -170,6 +174,14 @@ public class Usuario {
 
 	public void setReservas(List<Reserva> reservas) {
 		this.reservas = reservas;
+	}
+	
+	 public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 }
