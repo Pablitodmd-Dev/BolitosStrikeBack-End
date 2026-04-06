@@ -1,10 +1,9 @@
 package com.example.webthymeleaf.config;
 
-import com.example.webthymeleaf.security.CustomUserDetailsService;
-import com.example.webthymeleaf.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -16,6 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.example.webthymeleaf.security.CustomUserDetailsService;
+import com.example.webthymeleaf.security.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -37,55 +39,40 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
 
-                // Rutas públicas — registro y login
                 .requestMatchers("/auth/**").permitAll()
 
-                // Rutas de usuario autenticado
                 .requestMatchers("/usuarios/perfil/**").authenticated()
                 .requestMatchers("/usuarios/bolitos/**").authenticated()
                 .requestMatchers("/usuarios/historial/**").authenticated()
 
-                // Reservas — cualquier usuario autenticado
                 .requestMatchers("/reservas/**").authenticated()
 
-                // Pistas y franjas — lectura pública, escritura solo admin
-                .requestMatchers("GET", "/pistas/**").permitAll()
-                .requestMatchers("GET", "/franjas/**").permitAll()
-                .requestMatchers("POST", "/pistas/**").hasRole("ADMIN")
-                .requestMatchers("PUT", "/pistas/**").hasRole("ADMIN")
-                .requestMatchers("DELETE", "/pistas/**").hasRole("ADMIN")
-                .requestMatchers("POST", "/franjas/**").hasRole("ADMIN")
-                .requestMatchers("PUT", "/franjas/**").hasRole("ADMIN")
-                .requestMatchers("DELETE", "/franjas/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/pistas/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/franjas/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/pistas/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/pistas/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/pistas/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/franjas/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/franjas/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/franjas/**").hasRole("ADMIN")
 
-                // Valoraciones — cualquier usuario autenticado
-                .requestMatchers("/valoraciones/**").authenticated()
+                .requestMatchers(HttpMethod.GET, "/promociones/**").authenticated()
+                .requestMatchers(HttpMethod.POST, "/promociones/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/promociones/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/promociones/**").hasRole("ADMIN")
 
-                // Promociones — lectura autenticado, escritura solo admin
-                .requestMatchers("GET", "/promociones/**").authenticated()
-                .requestMatchers("POST", "/promociones/**").hasRole("ADMIN")
-                .requestMatchers("PUT", "/promociones/**").hasRole("ADMIN")
-                .requestMatchers("DELETE", "/promociones/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/recompensas/**").authenticated()
+                .requestMatchers(HttpMethod.POST, "/recompensas/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/recompensas/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/recompensas/**").hasRole("ADMIN")
 
-                // Recompensas — lectura autenticado, escritura solo admin
-                .requestMatchers("GET", "/recompensas/**").authenticated()
-                .requestMatchers("POST", "/recompensas/**").hasRole("ADMIN")
-                .requestMatchers("PUT", "/recompensas/**").hasRole("ADMIN")
-                .requestMatchers("DELETE", "/recompensas/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/eventos/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/eventos/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/eventos/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/eventos/**").hasRole("ADMIN")
 
-                // Eventos — lectura pública, escritura solo admin
-                .requestMatchers("GET", "/eventos/**").permitAll()
-                .requestMatchers("POST", "/eventos/**").hasRole("ADMIN")
-                .requestMatchers("PUT", "/eventos/**").hasRole("ADMIN")
-                .requestMatchers("DELETE", "/eventos/**").hasRole("ADMIN")
-
-                // Participacion en eventos — usuario autenticado
                 .requestMatchers("/eventos/participar/**").authenticated()
-
-                // Notificaciones — solo el propio usuario
                 .requestMatchers("/notificaciones/**").authenticated()
-
-                // Panel de administración completo
                 .requestMatchers("/admin/**").hasRole("ADMIN")
 
                 .anyRequest().authenticated()

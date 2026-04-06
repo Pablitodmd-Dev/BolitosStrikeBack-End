@@ -1,0 +1,14 @@
+package com.example.webthymeleaf.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.example.webthymeleaf.entity.Reserva;
+
+@Repository
+public interface ReservaRepository extends JpaRepository<Reserva, Long> {
+    List<Reserva> findByUsuarioId(Long usuarioId);
+    List<Reserva> findByEstado(String estado);
+}
