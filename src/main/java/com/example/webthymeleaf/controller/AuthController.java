@@ -38,7 +38,12 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UsuarioDTO> register(@RequestBody Usuario user) {
+    public ResponseEntity<UsuarioDTO> register(@RequestBody Map<String, Object> request) {
+        Usuario user = new Usuario();
+        user.setUsername((String) request.get("username"));
+        user.setEmail((String) request.get("email"));
+        user.setPassword((String) request.get("password"));
+        user.setAceptaTerminos((boolean) request.get("aceptaTerminos"));
         Usuario savedUser = authService.register(user);
         return ResponseEntity.ok(userConverter.entity2dto(savedUser));
     }
