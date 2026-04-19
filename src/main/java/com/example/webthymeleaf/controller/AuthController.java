@@ -31,10 +31,17 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> request) {
-        String token = authService.login(request.get("username"), request.get("password"));
-        Usuario user=userRepository.findByUsername(request.get("username")).orElseThrow(
-        		() -> new UsernameNotFoundException("Usuario no encontrado"));
-        return ResponseEntity.ok(Map.of("token", token, "role", user.getRol()));
+        try {
+            String token = authService.login(
+                request.get("username"), 
+                request.get("password")
+            );
+            Usuario user = userRepository.findByUsername(request.get("username"))
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+            return ResponseEntity.ok(Map.of("token", token, "role", user.getRol()));
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body(Map.of("error", e.getMessage()));
+        }
     }
 
     @PostMapping("/register")
