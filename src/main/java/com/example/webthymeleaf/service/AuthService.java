@@ -38,6 +38,7 @@ public class AuthService {
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         usuario.setRol("ROLE_USER");
         usuario.setDeleted(false);
+        usuario.setTotalBolitos(0);
         return userRepository.save(usuario);
     }
 }
