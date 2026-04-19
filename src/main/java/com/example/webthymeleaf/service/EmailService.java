@@ -23,7 +23,7 @@ public class EmailService {
         Email from = new Email(fromEmail);
         Email to = new Email(emailDestino);
         String subject = "Verifica tu cuenta en BolitosStrike";
-        String linkVerificacion = appUrl + "/auth/verificar?token=" + token;
+        String linkVerificacion = appUrl + "/auth/verify?token=" + token;
         String contenido = "<h2>¡Bienvenido a BolitosStrike!</h2>"
                 + "<p>Gracias por registrarte. Para activar tu cuenta haz clic en el siguiente enlace:</p>"
                 + "<a href='" + linkVerificacion + "' style='background-color:#C8920A;color:white;"
