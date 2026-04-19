@@ -28,6 +28,12 @@ public class Usuario {
     
     @Column(nullable = false)
     private Boolean deleted=false;
+    
+    @Column(nullable = false)
+    private boolean emailVerificado = false;
+
+    @Column(unique = true)
+    private String tokenVerificacion;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ParticipacionEvento> participaciones = new ArrayList<>();
@@ -52,9 +58,9 @@ public class Usuario {
 	}
 
 	public Usuario(Long id, String username, String email, String password, String rol, boolean aceptaTerminos,
-			int totalBolitos, Boolean deleted, List<ParticipacionEvento> participaciones,
-			List<Notificacion> notificaciones, List<CanjeRecompensa> canjes, List<HistorialBolitos> historialBolitos,
-			List<UsoPromocion> usos, List<Reserva> reservas) {
+			int totalBolitos, Boolean deleted, boolean emailVerificado, String tokenVerificacion,
+			List<ParticipacionEvento> participaciones, List<Notificacion> notificaciones, List<CanjeRecompensa> canjes,
+			List<HistorialBolitos> historialBolitos, List<UsoPromocion> usos, List<Reserva> reservas) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -64,6 +70,8 @@ public class Usuario {
 		this.aceptaTerminos = aceptaTerminos;
 		this.totalBolitos = totalBolitos;
 		this.deleted = deleted;
+		this.emailVerificado = emailVerificado;
+		this.tokenVerificacion = tokenVerificacion;
 		this.participaciones = participaciones;
 		this.notificaciones = notificaciones;
 		this.canjes = canjes;
@@ -182,6 +190,22 @@ public class Usuario {
 
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
+	}
+
+	public boolean isEmailVerificado() {
+		return emailVerificado;
+	}
+
+	public void setEmailVerificado(boolean emailVerificado) {
+		this.emailVerificado = emailVerificado;
+	}
+
+	public String getTokenVerificacion() {
+		return tokenVerificacion;
+	}
+
+	public void setTokenVerificacion(String tokenVerificacion) {
+		this.tokenVerificacion = tokenVerificacion;
 	}
 
 }
