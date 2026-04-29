@@ -35,7 +35,7 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
 
                 .requestMatchers("/auth/**").permitAll()
@@ -43,8 +43,8 @@ public class SecurityConfig {
                 .requestMatchers("/usuarios/perfil/**").authenticated()
                 .requestMatchers("/usuarios/bolitos/**").authenticated()
                 .requestMatchers("/usuarios/historial/**").authenticated()
-
-                .requestMatchers("/reservas/**").authenticated()
+                
+                .requestMatchers("/reservas", "/reservas/**").authenticated()
 
                 .requestMatchers(HttpMethod.GET, "/pistas/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/franjas/**").permitAll()
