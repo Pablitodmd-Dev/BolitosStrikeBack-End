@@ -1,8 +1,16 @@
 package com.example.webthymeleaf.entity;
 
-import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Usuario {
@@ -35,22 +43,23 @@ public class Usuario {
     @Column(unique = true)
     private String tokenVerificacion;
 
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "usuario")
     private List<ParticipacionEvento> participaciones = new ArrayList<>();
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "usuario")
     private List<Notificacion> notificaciones = new ArrayList<>();
     
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "usuario")
     private List<CanjeRecompensa> canjes = new ArrayList<>();
     
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "usuario")
     private List<HistorialBolitos> historialBolitos = new ArrayList<>();
     
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "usuario")
     private List<UsoPromocion> usos = new ArrayList<>();
     
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     private List<Reserva> reservas = new ArrayList<>();
 
     public Usuario() {
