@@ -60,7 +60,7 @@ public class ReservaController {
         Reserva reserva = new Reserva();
         reserva.setFecha(dto.getFecha());
         reserva.setNumPersonas(dto.getNumPersonas());
-        reserva.setEstado(dto.getEstado() != null ? dto.getEstado() : "CONFIRMADA");
+        reserva.setEstado(dto.getEstado() != null ? dto.getEstado() : "PENDIENTE");
         reserva.setMetodoPago(dto.getMetodoPago());
         reserva.setBolitosGenerados(dto.getBolitosGenerados());
 
