@@ -45,7 +45,7 @@ public class SecurityConfig {
                 .requestMatchers("/usuarios/historial/**").authenticated()
                 
                 .requestMatchers("/reservas", "/reservas/**").authenticated()
-
+                
                 .requestMatchers(HttpMethod.GET, "/pistas/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/franjas/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/pistas/**").hasRole("ADMIN")
@@ -65,6 +65,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.PUT, "/recompensas/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/recompensas/**").hasRole("ADMIN")
 
+                .requestMatchers("/canjes", "/canjes/**").authenticated()
+                
                 .requestMatchers(HttpMethod.GET, "/eventos/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/eventos/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/eventos/**").hasRole("ADMIN")
