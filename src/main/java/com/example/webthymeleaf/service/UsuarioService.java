@@ -61,7 +61,11 @@ public class UsuarioService {
             usuario.setEmail(usuarioDetails.getEmail());
         }
         if (usuarioDetails.getPassword() != null && !usuarioDetails.getPassword().isEmpty()) {
-            usuario.setPassword(passwordEncoder.encode(usuarioDetails.getPassword()));
+            if (!usuarioDetails.getPassword().startsWith("$2a$")) {
+                usuario.setPassword(passwordEncoder.encode(usuarioDetails.getPassword()));
+            } else {
+                usuario.setPassword(usuarioDetails.getPassword());
+            }
         }
         if (usuarioDetails.getTotalBolitos() >= 0) {
             usuario.setTotalBolitos(usuarioDetails.getTotalBolitos());
