@@ -25,7 +25,12 @@ public class ValoracionController {
     public ResponseEntity<Valoracion> getValoracionById(@PathVariable Long id) {
         return ResponseEntity.ok(valoracionService.getValoracionById(id));
     }
-
+    
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<List<Valoracion>> getValoracionesByUsuario(@PathVariable Long usuarioId) {
+        return ResponseEntity.ok(valoracionService.getValoracionesByUsuario(usuarioId));
+    }
+    
     @PostMapping
     public ResponseEntity<Valoracion> createValoracion(@RequestBody ValoracionRequestDTO dto) {
         return ResponseEntity.ok(valoracionService.createValoracionDTO(dto));
