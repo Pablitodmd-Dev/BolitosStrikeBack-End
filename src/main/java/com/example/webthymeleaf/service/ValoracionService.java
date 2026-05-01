@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.webthymeleaf.entity.Valoracion;
+import com.example.webthymeleaf.model.ValoracionRequestDTO;
 import com.example.webthymeleaf.repository.ValoracionRepository;
 
 @Service
@@ -16,7 +17,7 @@ public class ValoracionService {
 
     @Autowired
     private ReservaService reservaService;
-
+    
     public List<Valoracion> getAllValoraciones() {
         return valoracionRepository.findAll();
     }
@@ -34,6 +35,15 @@ public class ValoracionService {
         }
 
         return valoracionRepository.save(valoracion);
+    }
+    
+    public Valoracion createValoracionDTO(ValoracionRequestDTO dto) {
+        Valoracion valoracion = new Valoracion();
+        valoracion.setPuntuacion(dto.getPuntuacion());
+        valoracion.setComentario(dto.getComentario());
+        valoracion.setFecha(dto.getFecha());
+        valoracion.setReserva(reservaService.getReservaById(dto.getReservaId()));
+        return createValoracion(valoracion);
     }
 
     public void deleteValoracion(Long id) {

@@ -1,7 +1,16 @@
 package com.example.webthymeleaf.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Reserva {
@@ -32,7 +41,8 @@ public class Reserva {
     @JoinColumn(name = "franja_id", nullable = false)
     private FranjaHoraria franjaHoraria;
 
-    @OneToOne(mappedBy = "reserva", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "reserva")
+    @JsonIgnore
     private Valoracion valoracion;
 
 	public Reserva() {
