@@ -50,6 +50,7 @@ public class Usuario {
     private List<Notificacion> notificaciones = new ArrayList<>();
     
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     private List<CanjeRecompensa> canjes = new ArrayList<>();
     
     @OneToMany(mappedBy = "usuario")
