@@ -53,13 +53,20 @@ public class UsuarioService {
 
     public Usuario updateUsuario(Long id, Usuario usuarioDetails) {
         Usuario usuario = getUsuarioById(id);
-        usuario.setUsername(usuarioDetails.getUsername());
-        usuario.setEmail(usuarioDetails.getEmail());
-
+        
+        if (usuarioDetails.getUsername() != null && !usuarioDetails.getUsername().isEmpty()) {
+            usuario.setUsername(usuarioDetails.getUsername());
+        }
+        if (usuarioDetails.getEmail() != null && !usuarioDetails.getEmail().isEmpty()) {
+            usuario.setEmail(usuarioDetails.getEmail());
+        }
         if (usuarioDetails.getPassword() != null && !usuarioDetails.getPassword().isEmpty()) {
             usuario.setPassword(passwordEncoder.encode(usuarioDetails.getPassword()));
         }
-
+        if (usuarioDetails.getTotalBolitos() >= 0) {
+            usuario.setTotalBolitos(usuarioDetails.getTotalBolitos());
+        }
+        
         return usuarioRepository.save(usuario);
     }
 
