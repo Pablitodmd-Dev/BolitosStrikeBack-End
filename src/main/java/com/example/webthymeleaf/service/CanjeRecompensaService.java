@@ -46,4 +46,14 @@ public class CanjeRecompensaService {
 
         return canjeRecompensaRepository.save(canje);
     }
+    
+    public CanjeRecompensa canjearRecompensaDTO(com.example.webthymeleaf.model.CanjeRecompensaRequestDTO dto) {
+        CanjeRecompensa canje = new CanjeRecompensa();
+        canje.setCantidadCanjeada(dto.getCantidadCanjeada());
+        canje.setBolitosGastados(dto.getBolitosGastados());
+        canje.setFechaCanje(dto.getFechaCanje());
+        canje.setUsuario(usuarioService.getUsuarioById(dto.getUsuarioId()));
+        canje.setRecompensa(recompensaService.getRecompensaById(dto.getRecompensaId()));
+        return canjearRecompensa(canje);
+    }
 }
