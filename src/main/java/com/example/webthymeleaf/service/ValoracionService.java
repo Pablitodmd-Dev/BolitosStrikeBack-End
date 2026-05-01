@@ -26,7 +26,11 @@ public class ValoracionService {
         return valoracionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Valoracion no encontrada"));
     }
-
+    
+    public List<Valoracion> getValoracionesByUsuario(Long usuarioId) {
+        return valoracionRepository.findByReservaUsuarioId(usuarioId);
+    }
+    
     public Valoracion createValoracion(Valoracion valoracion) {
         reservaService.getReservaById(valoracion.getReserva().getId());
 
