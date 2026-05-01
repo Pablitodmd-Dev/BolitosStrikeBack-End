@@ -30,6 +30,8 @@ public class CanjeRecompensaService {
         Usuario usuario = usuarioService.getUsuarioById(canje.getUsuario().getId());
         Recompensa recompensa = recompensaService.getRecompensaById(canje.getRecompensa().getId());
 
+        System.out.println("Usuario antes: " + usuario.getUsername() + " pass: " + usuario.getPassword() + " bolitos: " + usuario.getTotalBolitos());
+
         if (usuario.getTotalBolitos() < recompensa.getCoste()) {
             throw new RuntimeException("Bolitos insuficientes para canjear esta recompensa");
         }
@@ -42,8 +44,10 @@ public class CanjeRecompensaService {
         recompensa.setStock(recompensa.getStock() - 1);
 
         usuarioService.updateUsuario(usuario.getId(), usuario);
+        
+        System.out.println("Usuario después: " + usuario.getUsername() + " pass: " + usuario.getPassword() + " bolitos: " + usuario.getTotalBolitos());
+        
         recompensaService.updateRecompensa(recompensa.getId(), recompensa);
-
         return canjeRecompensaRepository.save(canje);
     }
     
