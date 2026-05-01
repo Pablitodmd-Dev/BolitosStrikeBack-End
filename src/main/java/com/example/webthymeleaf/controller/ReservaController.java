@@ -78,13 +78,7 @@ public class ReservaController {
     public ResponseEntity<Reserva> updateReserva(@PathVariable Long id, @RequestBody Reserva reservaDetails) {
         return ResponseEntity.ok(reservaService.updateReserva(id, reservaDetails));
     }
-    
-    @PutMapping("/{id}/completar")
-    public ResponseEntity<Void> completarReserva(@PathVariable Long id) {
-        reservaService.completarReserva(id);
-        return ResponseEntity.noContent().build();
-    }
-    
+
     @PutMapping("/{id}/cancelar")
     public ResponseEntity<Void> cancelarReserva(@PathVariable Long id) {
         reservaService.cancelarReserva(id);

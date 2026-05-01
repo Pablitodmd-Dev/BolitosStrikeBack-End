@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.webthymeleaf.entity.FranjaHoraria;
 import com.example.webthymeleaf.entity.Reserva;
-import com.example.webthymeleaf.entity.Usuario;
 import com.example.webthymeleaf.repository.ReservaRepository;
 
 @Service
@@ -19,9 +18,6 @@ public class ReservaService {
     @Autowired
     private FranjaHorariaService franjaHorariaService;
 
-    @Autowired
-    private UsuarioService usuarioService;
-    
     public List<Reserva> getAllReservas() {
         return reservaRepository.findAll();
     }
@@ -55,19 +51,7 @@ public class ReservaService {
         reserva.setMetodoPago(reservaDetails.getMetodoPago());
         return reservaRepository.save(reserva);
     }
-    
-    public void completarReserva(Long id) {
-        Reserva reserva = getReservaById(id);
-        reserva.setEstado("COMPLETADA");
-        
-        // Sumar bolitos al usuario
-        Usuario usuario = reserva.getUsuario();
-        usuario.setTotalBolitos(usuario.getTotalBolitos() + reserva.getBolitosGenerados());
-        usuarioService.updateUsuario(usuario.getId(), usuario);
-        
-        reservaRepository.save(reserva);
-    }
-    
+
     public void cancelarReserva(Long id) {
         Reserva reserva = getReservaById(id);
         reserva.setEstado("CANCELADA");
