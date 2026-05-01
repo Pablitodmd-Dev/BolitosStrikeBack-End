@@ -1,8 +1,16 @@
 package com.example.webthymeleaf.entity;
 
-import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Recompensa {
@@ -18,7 +26,8 @@ public class Recompensa {
 
     private int stock;
 
-    @OneToMany(mappedBy = "recompensa", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "recompensa")
+    @JsonIgnore
     private List<CanjeRecompensa> canjes = new ArrayList<>();
 
 	public Recompensa(Long id, String nombre, double coste, int stock, List<CanjeRecompensa> canjes) {
