@@ -45,8 +45,8 @@ public class SecurityConfig {
                 .requestMatchers("/usuarios/historial/**").authenticated()
                 
                 .requestMatchers("/canjes", "/canjes/**").authenticated()
-                
                 .requestMatchers("/reservas", "/reservas/**").authenticated()
+                .requestMatchers("/valoraciones", "/valoraciones/**").authenticated()
                 
                 .requestMatchers(HttpMethod.GET, "/pistas/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/franjas/**").permitAll()

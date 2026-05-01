@@ -1,6 +1,7 @@
 package com.example.webthymeleaf.controller;
 
 import com.example.webthymeleaf.entity.Valoracion;
+import com.example.webthymeleaf.model.ValoracionRequestDTO;
 import com.example.webthymeleaf.service.ValoracionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +27,8 @@ public class ValoracionController {
     }
 
     @PostMapping
-    public ResponseEntity<Valoracion> createValoracion(@RequestBody Valoracion valoracion) {
-        return ResponseEntity.ok(valoracionService.createValoracion(valoracion));
+    public ResponseEntity<Valoracion> createValoracion(@RequestBody ValoracionRequestDTO dto) {
+        return ResponseEntity.ok(valoracionService.createValoracionDTO(dto));
     }
 
     @DeleteMapping("/{id}")
