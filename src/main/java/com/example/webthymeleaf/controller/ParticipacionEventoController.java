@@ -1,6 +1,7 @@
 package com.example.webthymeleaf.controller;
 
 import com.example.webthymeleaf.entity.ParticipacionEvento;
+import com.example.webthymeleaf.model.ParticipacionEventoRequestDTO;
 import com.example.webthymeleaf.service.ParticipacionEventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +27,8 @@ public class ParticipacionEventoController {
     }
 
     @PostMapping
-    public ResponseEntity<ParticipacionEvento> inscribirUsuario(@RequestBody ParticipacionEvento participacion) {
-        return ResponseEntity.ok(participacionEventoService.inscribirUsuario(participacion));
+    public ResponseEntity<ParticipacionEvento> inscribirUsuario(@RequestBody ParticipacionEventoRequestDTO dto) {
+        return ResponseEntity.ok(participacionEventoService.inscribirUsuarioDTO(dto));
     }
 
     @DeleteMapping("/usuario/{usuarioId}/evento/{eventoId}")
