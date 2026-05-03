@@ -44,6 +44,7 @@ public class Usuario {
     private String tokenVerificacion;
 
 	@OneToMany(mappedBy = "usuario")
+	@JsonIgnore
     private List<ParticipacionEvento> participaciones = new ArrayList<>();
 
     @OneToMany(mappedBy = "usuario")
