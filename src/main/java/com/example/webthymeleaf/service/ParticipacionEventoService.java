@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.webthymeleaf.entity.ParticipacionEvento;
+import com.example.webthymeleaf.model.ParticipacionEventoRequestDTO;
 import com.example.webthymeleaf.repository.ParticipacionEventoRepository;
 
 @Service
@@ -39,6 +40,14 @@ public class ParticipacionEventoService {
         }
 
         return participacionEventoRepository.save(participacion);
+    }
+    
+    public ParticipacionEvento inscribirUsuarioDTO(ParticipacionEventoRequestDTO dto) {
+        ParticipacionEvento participacion = new ParticipacionEvento();
+        participacion.setFechaInscripcion(dto.getFechaInscripcion());
+        participacion.setUsuario(usuarioService.getUsuarioById(dto.getUsuarioId()));
+        participacion.setEvento(eventoService.getEventoById(dto.getEventoId()));
+        return inscribirUsuario(participacion);
     }
 
     public void cancelarInscripcion(Long usuarioId, Long eventoId) {
