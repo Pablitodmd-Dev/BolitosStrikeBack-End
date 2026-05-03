@@ -72,6 +72,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.PUT, "/eventos/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/eventos/**").hasRole("ADMIN")
 
+                .requestMatchers("/participaciones", "/participaciones/**").authenticated()
                 .requestMatchers("/eventos/participar/**").authenticated()
                 .requestMatchers("/notificaciones/**").authenticated()
                 .requestMatchers("/admin/**").hasRole("ADMIN")

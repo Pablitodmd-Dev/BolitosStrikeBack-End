@@ -1,9 +1,17 @@
 package com.example.webthymeleaf.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Evento {
@@ -23,10 +31,12 @@ public class Evento {
 
     private String premio;
 
-    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "evento")
+    @JsonIgnore
     private List<ParticipacionEvento> participaciones = new ArrayList<>();
 
-    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "evento")
+    @JsonIgnore
     private List<Notificacion> notificaciones = new ArrayList<>();
 
 	public Evento() {
