@@ -1,13 +1,22 @@
 package com.example.webthymeleaf.controller;
 
-import com.example.webthymeleaf.model.UsuarioDTO;
-import com.example.webthymeleaf.entity.Usuario;
-import com.example.webthymeleaf.service.UsuarioService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.example.webthymeleaf.entity.Usuario;
+import com.example.webthymeleaf.model.CrearWorkerRequestDTO;
+import com.example.webthymeleaf.model.UsuarioDTO;
+import com.example.webthymeleaf.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -27,8 +36,8 @@ public class UsuarioController {
     }
 
     @PostMapping("/worker")
-    public ResponseEntity<Usuario> createWorker(@RequestBody Usuario usuario) {
-        return ResponseEntity.ok(usuarioService.createWorker(usuario));
+    public ResponseEntity<Usuario> createWorker(@RequestBody CrearWorkerRequestDTO dto) {
+        return ResponseEntity.ok(usuarioService.createWorker(dto));
     }
     
     @PutMapping("/{id}")
