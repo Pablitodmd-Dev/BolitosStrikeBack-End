@@ -26,6 +26,11 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.getUsuarioByIdDTO(id));
     }
 
+    @PostMapping("/worker")
+    public ResponseEntity<Usuario> createWorker(@RequestBody Usuario usuario) {
+        return ResponseEntity.ok(usuarioService.createWorker(usuario));
+    }
+    
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> updateUsuario(@PathVariable Long id, @RequestBody Usuario usuarioDetails) {
         return ResponseEntity.ok(usuarioService.updateUsuario(id, usuarioDetails));

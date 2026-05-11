@@ -50,7 +50,17 @@ public class UsuarioService {
         return usuarioRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     }
-
+    
+    public Usuario createWorker(Usuario usuario) {
+        usuario.setRol("ROLE_WORKER");
+        usuario.setDeleted(false);
+        usuario.setEmailVerificado(true);
+        usuario.setAceptaTerminos(true);
+        usuario.setTotalBolitos(0);
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        return usuarioRepository.save(usuario);
+    }
+    
     public Usuario updateUsuario(Long id, Usuario usuarioDetails) {
         Usuario usuario = getUsuarioById(id);
         
