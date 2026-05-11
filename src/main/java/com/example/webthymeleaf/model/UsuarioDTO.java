@@ -2,44 +2,91 @@ package com.example.webthymeleaf.model;
 
 public class UsuarioDTO {
 
-    private Long id;
-    private String username;
-    private String email;
-    private String rol;
-    private boolean aceptaTerminos;
-    private int totalBolitos;
-    private Boolean deleted;
+	private Long id;
+	private String username;
+	private String email;
+	private String rol;
+	private boolean aceptaTerminos;
+	private int totalBolitos;
+	private Boolean deleted;
+	private boolean emailVerificado;
 
-    public UsuarioDTO() {}
+	public UsuarioDTO() {
+	}
 
-    public UsuarioDTO(Long id, String username, String email, String rol, boolean aceptaTerminos, int totalBolitos, Boolean deleted) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.rol = rol;
-        this.aceptaTerminos = aceptaTerminos;
-        this.totalBolitos = totalBolitos;
-        this.deleted = deleted;
-    }
+	public UsuarioDTO(Long id, String username, String email, String rol, boolean aceptaTerminos, int totalBolitos,
+			Boolean deleted, boolean emailVerificado) {
+		this.id = id;
+		this.username = username;
+		this.email = email;
+		this.rol = rol;
+		this.aceptaTerminos = aceptaTerminos;
+		this.totalBolitos = totalBolitos;
+		this.deleted = deleted;
+		this.emailVerificado = emailVerificado;
+	}
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+	public Long getId() {
+		return id;
+	}
 
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+	public String getUsername() {
+		return username;
+	}
 
-    public String getRol() { return rol; }
-    public void setRol(String rol) { this.rol = rol; }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public boolean isAceptaTerminos() { return aceptaTerminos; }
-    public void setAceptaTerminos(boolean aceptaTerminos) { this.aceptaTerminos = aceptaTerminos; }
+	public String getEmail() {
+		return email;
+	}
 
-    public int getTotalBolitos() { return totalBolitos; }
-    public void setTotalBolitos(int totalBolitos) { this.totalBolitos = totalBolitos; }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public Boolean getDeleted() { return deleted; }
-    public void setDeleted(Boolean deleted) { this.deleted = deleted; }
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+
+	public boolean isAceptaTerminos() {
+		return aceptaTerminos;
+	}
+
+	public void setAceptaTerminos(boolean aceptaTerminos) {
+		this.aceptaTerminos = aceptaTerminos;
+	}
+
+	public int getTotalBolitos() {
+		return totalBolitos;
+	}
+
+	public void setTotalBolitos(int totalBolitos) {
+		this.totalBolitos = totalBolitos;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public boolean isEmailVerificado() {
+		return emailVerificado;
+	}
+
+	public void setEmailVerificado(boolean emailVerificado) {
+		this.emailVerificado = emailVerificado;
+	}
 }

@@ -10,17 +10,18 @@ import java.util.stream.Collectors;
 @Component
 public class UsuarioConverter {
 
-    public UsuarioDTO entity2dto(Usuario usuario) {
-        UsuarioDTO dto = new UsuarioDTO();
-        dto.setId(usuario.getId());
-        dto.setUsername(usuario.getUsername());
-        dto.setEmail(usuario.getEmail());
-        dto.setRol(usuario.getRol());
-        dto.setAceptaTerminos(usuario.isAceptaTerminos());
-        dto.setTotalBolitos(usuario.getTotalBolitos());
-        dto.setDeleted(usuario.getDeleted());
-        return dto;
-    }
+	public UsuarioDTO entity2dto(Usuario usuario) {
+	    UsuarioDTO dto = new UsuarioDTO();
+	    dto.setId(usuario.getId());
+	    dto.setUsername(usuario.getUsername());
+	    dto.setEmail(usuario.getEmail());
+	    dto.setRol(usuario.getRol());
+	    dto.setAceptaTerminos(usuario.isAceptaTerminos());
+	    dto.setTotalBolitos(usuario.getTotalBolitos());
+	    dto.setDeleted(usuario.getDeleted());
+	    dto.setEmailVerificado(usuario.isEmailVerificado());
+	    return dto;
+	}
 
     public List<UsuarioDTO> entityList2dtoList(List<Usuario> usuarios) {
         if (usuarios == null) return List.of();
