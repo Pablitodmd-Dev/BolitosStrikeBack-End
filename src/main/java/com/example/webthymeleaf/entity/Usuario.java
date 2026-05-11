@@ -38,7 +38,7 @@ public class Usuario {
     private Boolean deleted=false;
     
     @Column(nullable = false)
-    private boolean emailVerificado = false;
+    private Boolean emailVerificado = false;
 
     @Column(unique = true)
     private String tokenVerificacion;
@@ -48,6 +48,7 @@ public class Usuario {
     private List<ParticipacionEvento> participaciones = new ArrayList<>();
 
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     private List<Notificacion> notificaciones = new ArrayList<>();
     
     @OneToMany(mappedBy = "usuario")
@@ -55,9 +56,11 @@ public class Usuario {
     private List<CanjeRecompensa> canjes = new ArrayList<>();
     
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     private List<HistorialBolitos> historialBolitos = new ArrayList<>();
     
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     private List<UsoPromocion> usos = new ArrayList<>();
     
     @OneToMany(mappedBy = "usuario")
