@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.webthymeleaf.converter.UsuarioConverter;
 import com.example.webthymeleaf.entity.Usuario;
+import com.example.webthymeleaf.model.CrearWorkerRequestDTO;
 import com.example.webthymeleaf.model.UsuarioDTO;
 import com.example.webthymeleaf.repository.UsuarioRepository;
 
@@ -51,13 +52,16 @@ public class UsuarioService {
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     }
     
-    public Usuario createWorker(Usuario usuario) {
+    public Usuario createWorker(CrearWorkerRequestDTO dto) {
+        Usuario usuario = new Usuario();
+        usuario.setUsername(dto.getUsername());
+        usuario.setEmail(dto.getEmail());
+        usuario.setPassword(passwordEncoder.encode(dto.getPassword()));
         usuario.setRol("ROLE_WORKER");
         usuario.setDeleted(false);
         usuario.setEmailVerificado(true);
         usuario.setAceptaTerminos(true);
         usuario.setTotalBolitos(0);
-        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return usuarioRepository.save(usuario);
     }
     
