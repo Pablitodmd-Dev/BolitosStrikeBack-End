@@ -43,6 +43,7 @@ public class SecurityConfig {
                 .requestMatchers("/usuarios/perfil/**").authenticated()
                 .requestMatchers("/usuarios/bolitos/**").authenticated()
                 .requestMatchers("/usuarios/historial/**").authenticated()
+                .requestMatchers(HttpMethod.POST, "/usuarios/worker").hasRole("ADMIN")
                 
                 .requestMatchers("/canjes", "/canjes/**").authenticated()
                 .requestMatchers("/reservas", "/reservas/**").authenticated()
