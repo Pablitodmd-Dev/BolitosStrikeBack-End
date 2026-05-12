@@ -37,11 +37,11 @@ public class SecurityConfig {
 			.authorizeHttpRequests(auth -> auth
 					.requestMatchers("/auth/**").permitAll()
 					
-					.requestMatchers("/usuarios/perfil/**").authenticated().requestMatchers("/usuarios/bolitos/**")
-					.authenticated().requestMatchers("/usuarios/historial/**").authenticated()
-					.requestMatchers(HttpMethod.GET, "/usuarios/**").hasAnyRole("ADMIN", "WORKER")
+					.requestMatchers("/usuarios/perfil/**").authenticated()
+					.requestMatchers("/usuarios/historial/**").authenticated()
 					.requestMatchers(HttpMethod.POST, "/usuarios/worker").hasRole("ADMIN")
-					.requestMatchers(HttpMethod.PUT, "/usuarios/**").hasAnyRole("ADMIN", "WORKER")
+					.requestMatchers(HttpMethod.GET, "/usuarios/**").authenticated()
+					.requestMatchers(HttpMethod.PUT, "/usuarios/**").authenticated()
 					.requestMatchers(HttpMethod.DELETE, "/usuarios/**").hasRole("ADMIN")
 
 					.requestMatchers("/canjes", "/canjes/**").authenticated()
