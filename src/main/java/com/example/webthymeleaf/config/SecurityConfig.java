@@ -24,75 +24,73 @@ import com.example.webthymeleaf.security.JwtAuthenticationFilter;
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-    @Autowired
-    private CustomUserDetailsService userDetailsService;
+	@Autowired
+	private CustomUserDetailsService userDetailsService;
 
-    @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
-    
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(csrf -> csrf.disable())
-            .sessionManagement(session -> session
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth
+	@Autowired
+	private JwtAuthenticationFilter jwtAuthenticationFilter;
 
-                .requestMatchers("/auth/**").permitAll()
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.csrf(csrf -> csrf.disable())
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers("/auth/**").permitAll()
 
-                .requestMatchers("/usuarios/perfil/**").authenticated()
-                .requestMatchers("/usuarios/bolitos/**").authenticated()
-                .requestMatchers("/usuarios/historial/**").authenticated()
-                .requestMatchers(HttpMethod.POST, "/usuarios/worker").hasRole("ADMIN")
-                
-                .requestMatchers("/canjes", "/canjes/**").authenticated()
-                .requestMatchers("/reservas", "/reservas/**").authenticated()
-                .requestMatchers("/valoraciones", "/valoraciones/**").authenticated()
-                
-                .requestMatchers(HttpMethod.GET, "/pistas/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/franjas/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/pistas/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/pistas/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/pistas/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/franjas/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/franjas/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/franjas/**").hasRole("ADMIN")
+						.requestMatchers("/usuarios/perfil/**").authenticated().requestMatchers("/usuarios/bolitos/**")
+						.authenticated().requestMatchers("/usuarios/historial/**").authenticated()
+						.requestMatchers(HttpMethod.GET, "/usuarios/**").hasAnyRole("ADMIN", "WORKER")
+						.requestMatchers(HttpMethod.POST, "/usuarios/worker").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.PUT, "/usuarios/**").hasAnyRole("ADMIN", "WORKER")
+						.requestMatchers(HttpMethod.DELETE, "/usuarios/**").hasRole("ADMIN")
 
-                .requestMatchers(HttpMethod.GET, "/promociones/**").authenticated()
-                .requestMatchers(HttpMethod.POST, "/promociones/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/promociones/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/promociones/**").hasRole("ADMIN")
+						.requestMatchers("/canjes", "/canjes/**").authenticated()
+						.requestMatchers("/reservas", "/reservas/**").hasAnyRole("ADMIN", "WORKER", "USER")
+						.requestMatchers("/valoraciones", "/valoraciones/**").authenticated()
 
-                .requestMatchers(HttpMethod.GET, "/recompensas/**").authenticated()
-                .requestMatchers(HttpMethod.POST, "/recompensas/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/recompensas/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/recompensas/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.GET, "/pistas/**").permitAll()
+						.requestMatchers(HttpMethod.POST, "/pistas/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.PUT, "/pistas/**").hasAnyRole("ADMIN", "WORKER")
+						.requestMatchers(HttpMethod.DELETE, "/pistas/**").hasRole("ADMIN")
 
-                .requestMatchers(HttpMethod.GET, "/eventos/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/eventos/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/eventos/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/eventos/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.GET, "/franjas/**").permitAll()
+						.requestMatchers(HttpMethod.POST, "/franjas/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.PUT, "/franjas/**").hasAnyRole("ADMIN", "WORKER")
+						.requestMatchers(HttpMethod.DELETE, "/franjas/**").hasRole("ADMIN")
 
-                .requestMatchers("/participaciones", "/participaciones/**").authenticated()
-                .requestMatchers("/eventos/participar/**").authenticated()
-                .requestMatchers("/notificaciones/**").authenticated()
-                .requestMatchers("/admin/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.GET, "/promociones/**").authenticated()
+						.requestMatchers(HttpMethod.POST, "/promociones/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.PUT, "/promociones/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.DELETE, "/promociones/**").hasRole("ADMIN")
 
-                .anyRequest().authenticated()
-            )
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+						.requestMatchers(HttpMethod.GET, "/recompensas/**").authenticated()
+						.requestMatchers(HttpMethod.POST, "/recompensas/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.PUT, "/recompensas/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.DELETE, "/recompensas/**").hasRole("ADMIN")
 
-        return http.build();
-    }
+						.requestMatchers(HttpMethod.GET, "/eventos/**").permitAll()
+						.requestMatchers(HttpMethod.POST, "/eventos/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.PUT, "/eventos/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.DELETE, "/eventos/**").hasRole("ADMIN")
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-            throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
+						.requestMatchers("/participaciones", "/participaciones/**").authenticated()
+						.requestMatchers("/eventos/participar/**").authenticated().requestMatchers("/notificaciones/**")
+						.authenticated().requestMatchers("/admin/**").hasRole("ADMIN")
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+						.anyRequest().authenticated())
+				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+		return http.build();
+	}
+
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+			throws Exception {
+		return authenticationConfiguration.getAuthenticationManager();
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }
