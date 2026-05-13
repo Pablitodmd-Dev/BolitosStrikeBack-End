@@ -1,13 +1,9 @@
 package com.example.webthymeleaf.entity;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,34 +14,29 @@ import jakarta.persistence.OneToMany;
 @Entity
 public class FranjaHoraria {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(nullable = false)
-    private LocalDate fecha;
+	@Column(nullable = false)
+	private LocalTime horaInicio;
 
-    @Column(nullable = false)
-    private LocalTime horaInicio;
+	@Column(nullable = false)
+	private LocalTime horaFin;
 
-    @Column(nullable = false)
-    private LocalTime horaFin;
+	private boolean disponible;
 
-    private boolean disponible;
-
-    @OneToMany(mappedBy = "franjaHoraria")
-    @JsonIgnore
-    private List<Reserva> reservas = new ArrayList<>();
+	@OneToMany(mappedBy = "franjaHoraria")
+	@JsonIgnore
+	private List<Reserva> reservas = new ArrayList<>();
 
 	public FranjaHoraria() {
 		super();
 	}
 
-	public FranjaHoraria(Long id, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, boolean disponible,
-			List<Reserva> reservas) {
+	public FranjaHoraria(Long id, LocalTime horaInicio, LocalTime horaFin, boolean disponible, List<Reserva> reservas) {
 		super();
 		this.id = id;
-		this.fecha = fecha;
 		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
 		this.disponible = disponible;
@@ -58,14 +49,6 @@ public class FranjaHoraria {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public LocalDate getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
 	}
 
 	public LocalTime getHoraInicio() {
@@ -99,5 +82,4 @@ public class FranjaHoraria {
 	public void setReservas(List<Reserva> reservas) {
 		this.reservas = reservas;
 	}
-    
 }
