@@ -7,5 +7,5 @@ import com.example.webthymeleaf.entity.FranjaHoraria;
 
 @Repository
 public interface FranjaHorariaRepository extends JpaRepository<FranjaHoraria, Long> {
-    List<FranjaHoraria> findByDisponibleTrue();
+	List<FranjaHoraria> findByDisponibleTrue();
 }

@@ -9,36 +9,36 @@ import com.example.webthymeleaf.repository.FranjaHorariaRepository;
 @Service
 public class FranjaHorariaService {
 
-    @Autowired
-    private FranjaHorariaRepository franjaHorariaRepository;
+	@Autowired
+	private FranjaHorariaRepository franjaHorariaRepository;
 
-    public List<FranjaHoraria> getAllFranjas() {
-        return franjaHorariaRepository.findAll();
-    }
+	public List<FranjaHoraria> getAllFranjas() {
+		return franjaHorariaRepository.findAll();
+	}
 
-    public List<FranjaHoraria> getFranjasDisponibles() {
-        return franjaHorariaRepository.findByDisponibleTrue();
-    }
+	public List<FranjaHoraria> getFranjasDisponibles() {
+		return franjaHorariaRepository.findByDisponibleTrue();
+	}
 
-    public FranjaHoraria getFranjaById(Long id) {
-        return franjaHorariaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Franja horaria no encontrada"));
-    }
+	public FranjaHoraria getFranjaById(Long id) {
+		return franjaHorariaRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Franja horaria no encontrada"));
+	}
 
-    public FranjaHoraria createFranja(FranjaHoraria franja) {
-        return franjaHorariaRepository.save(franja);
-    }
+	public FranjaHoraria createFranja(FranjaHoraria franja) {
+		return franjaHorariaRepository.save(franja);
+	}
 
-    public FranjaHoraria updateFranja(Long id, FranjaHoraria franjaDetails) {
-        FranjaHoraria franja = getFranjaById(id);
-        franja.setHoraInicio(franjaDetails.getHoraInicio());
-        franja.setHoraFin(franjaDetails.getHoraFin());
-        franja.setDisponible(franjaDetails.isDisponible());
-        return franjaHorariaRepository.save(franja);
-    }
+	public FranjaHoraria updateFranja(Long id, FranjaHoraria franjaDetails) {
+		FranjaHoraria franja = getFranjaById(id);
+		franja.setHoraInicio(franjaDetails.getHoraInicio());
+		franja.setHoraFin(franjaDetails.getHoraFin());
+		franja.setDisponible(franjaDetails.isDisponible());
+		return franjaHorariaRepository.save(franja);
+	}
 
-    public void deleteFranja(Long id) {
-        getFranjaById(id);
-        franjaHorariaRepository.deleteById(id);
-    }
+	public void deleteFranja(Long id) {
+		getFranjaById(id);
+		franjaHorariaRepository.deleteById(id);
+	}
 }
