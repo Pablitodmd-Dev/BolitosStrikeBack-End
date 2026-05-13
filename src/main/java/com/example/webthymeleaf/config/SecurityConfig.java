@@ -53,10 +53,10 @@ public class SecurityConfig {
 					.requestMatchers(HttpMethod.PUT, "/pistas/**").hasAnyRole("ADMIN", "WORKER")
 					.requestMatchers(HttpMethod.DELETE, "/pistas/**").hasRole("ADMIN")
 
-					.requestMatchers(HttpMethod.GET, "/franjas/**").permitAll()
-					.requestMatchers(HttpMethod.POST, "/franjas/**").hasRole("ADMIN")
-					.requestMatchers(HttpMethod.PUT, "/franjas/**").hasAnyRole("ADMIN", "WORKER")
-					.requestMatchers(HttpMethod.DELETE, "/franjas/**").hasRole("ADMIN")
+					.requestMatchers(HttpMethod.GET, "/franjas", "/franjas/**").permitAll()
+					.requestMatchers(HttpMethod.POST, "/franjas", "/franjas/**").hasRole("ADMIN")
+					.requestMatchers(HttpMethod.PUT, "/franjas", "/franjas/**").hasAnyRole("ADMIN", "WORKER")
+					.requestMatchers(HttpMethod.DELETE, "/franjas", "/franjas/**").hasRole("ADMIN")
 
 					.requestMatchers(HttpMethod.GET, "/promociones/**").authenticated()
 					.requestMatchers(HttpMethod.POST, "/promociones/**").hasRole("ADMIN")
