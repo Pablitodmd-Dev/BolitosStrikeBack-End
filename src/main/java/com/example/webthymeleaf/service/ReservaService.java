@@ -41,8 +41,6 @@ public class ReservaService {
 
     public Reserva createReserva(Reserva reserva) {
         FranjaHoraria franja = franjaHorariaService.getFranjaById(reserva.getFranjaHoraria().getId());
-        franja.setDisponible(false);
-        franjaHorariaService.updateFranja(franja.getId(), franja);
         reserva.setFranjaHoraria(franja);
         return reservaRepository.save(reserva);
     }
@@ -70,9 +68,6 @@ public class ReservaService {
     public void cancelarReserva(Long id) {
         Reserva reserva = getReservaById(id);
         reserva.setEstado("CANCELADA");
-        FranjaHoraria franja = reserva.getFranjaHoraria();
-        franja.setDisponible(true);
-        franjaHorariaService.updateFranja(franja.getId(), franja);
         reservaRepository.save(reserva);
     }
 }
