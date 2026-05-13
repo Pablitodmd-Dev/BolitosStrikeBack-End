@@ -5,8 +5,6 @@ import com.example.webthymeleaf.service.FranjaHorariaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -26,16 +24,6 @@ public class FranjaHorariaController {
         return ResponseEntity.ok(franjaHorariaService.getFranjasDisponibles());
     }
 
-    @GetMapping("/fecha/{fecha}")
-    public ResponseEntity<List<FranjaHoraria>> getFranjasByFecha(@PathVariable LocalDate fecha) {
-        return ResponseEntity.ok(franjaHorariaService.getFranjasByFecha(fecha));
-    }
-
-    @GetMapping("/disponibles/fecha/{fecha}")
-    public ResponseEntity<List<FranjaHoraria>> getFranjasDisponiblesByFecha(@PathVariable LocalDate fecha) {
-        return ResponseEntity.ok(franjaHorariaService.getFranjasDisponiblesByFecha(fecha));
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<FranjaHoraria> getFranjaById(@PathVariable Long id) {
         return ResponseEntity.ok(franjaHorariaService.getFranjaById(id));
@@ -47,7 +35,8 @@ public class FranjaHorariaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FranjaHoraria> updateFranja(@PathVariable Long id, @RequestBody FranjaHoraria franjaDetails) {
+    public ResponseEntity<FranjaHoraria> updateFranja(@PathVariable Long id,
+            @RequestBody FranjaHoraria franjaDetails) {
         return ResponseEntity.ok(franjaHorariaService.updateFranja(id, franjaDetails));
     }
 
