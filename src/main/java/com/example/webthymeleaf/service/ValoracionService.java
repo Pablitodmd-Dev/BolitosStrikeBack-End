@@ -51,7 +51,6 @@ public class ValoracionService {
     }
 
     public void deleteValoracion(Long id) {
-        getValoracionById(id);
         valoracionRepository.deleteById(id);
     }
 }
