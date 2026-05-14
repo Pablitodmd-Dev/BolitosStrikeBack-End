@@ -47,6 +47,7 @@ public class SecurityConfig {
 					.requestMatchers("/canjes", "/canjes/**").authenticated()
 					.requestMatchers("/reservas", "/reservas/**").hasAnyRole("ADMIN", "WORKER", "USER")
 					.requestMatchers("/valoraciones", "/valoraciones/**").authenticated()
+					.requestMatchers(HttpMethod.DELETE, "/valoraciones/**").hasRole("ADMIN")
 
 					.requestMatchers(HttpMethod.GET, "/pistas/**").permitAll()
 					.requestMatchers(HttpMethod.POST, "/pistas/**").hasRole("ADMIN")
@@ -57,11 +58,6 @@ public class SecurityConfig {
 					.requestMatchers(HttpMethod.POST, "/franjas", "/franjas/**").hasRole("ADMIN")
 					.requestMatchers(HttpMethod.PUT, "/franjas", "/franjas/**").hasAnyRole("ADMIN", "WORKER")
 					.requestMatchers(HttpMethod.DELETE, "/franjas", "/franjas/**").hasRole("ADMIN")
-
-					.requestMatchers(HttpMethod.GET, "/promociones/**").authenticated()
-					.requestMatchers(HttpMethod.POST, "/promociones/**").hasRole("ADMIN")
-					.requestMatchers(HttpMethod.PUT, "/promociones/**").hasRole("ADMIN")
-					.requestMatchers(HttpMethod.DELETE, "/promociones/**").hasRole("ADMIN")
 
 					.requestMatchers(HttpMethod.GET, "/recompensas/**").authenticated()
 					.requestMatchers(HttpMethod.POST, "/recompensas/**").hasRole("ADMIN")
@@ -74,8 +70,9 @@ public class SecurityConfig {
 					.requestMatchers(HttpMethod.DELETE, "/eventos/**").hasRole("ADMIN")
 
 					.requestMatchers("/participaciones", "/participaciones/**").authenticated()
-					.requestMatchers("/eventos/participar/**").authenticated().requestMatchers("/notificaciones/**")
-					.authenticated().requestMatchers("/admin/**").hasRole("ADMIN")
+					.requestMatchers("/eventos/participar/**").authenticated()
+					.requestMatchers("/notificaciones/**").authenticated()
+					.requestMatchers("/admin/**").hasRole("ADMIN")
 
 					.anyRequest().authenticated()
 					)
