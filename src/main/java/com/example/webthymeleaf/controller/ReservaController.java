@@ -54,21 +54,7 @@ public class ReservaController {
 
     @PostMapping
     public ResponseEntity<Reserva> createReserva(@RequestBody ReservaRequestDTO dto) {
-        Reserva reserva = new Reserva();
-        reserva.setFecha(dto.getFecha());
-        reserva.setNumPersonas(dto.getNumPersonas());
-        reserva.setEstado(dto.getEstado() != null ? dto.getEstado() : "PENDIENTE");
-        reserva.setMetodoPago(dto.getMetodoPago());
-        reserva.setBolitosGenerados(dto.getBolitosGenerados());
-
-        reserva.setUsuario(usuarioRepository.findById(dto.getUsuarioId())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado")));
-        reserva.setPista(pistaRepository.findById(dto.getPistaId())
-                .orElseThrow(() -> new RuntimeException("Pista no encontrada")));
-        reserva.setFranjaHoraria(franjaHorariaRepository.findById(dto.getFranjaId())
-                .orElseThrow(() -> new RuntimeException("Franja no encontrada")));
-
-        return ResponseEntity.ok(reservaService.createReserva(reserva));
+        return ResponseEntity.ok(reservaService.createReserva(dto));
     }
 
     @PutMapping("/{id}")

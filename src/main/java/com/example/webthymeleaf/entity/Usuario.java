@@ -57,14 +57,6 @@ public class Usuario {
     
     @OneToMany(mappedBy = "usuario")
     @JsonIgnore
-    private List<HistorialBolitos> historialBolitos = new ArrayList<>();
-    
-    @OneToMany(mappedBy = "usuario")
-    @JsonIgnore
-    private List<UsoPromocion> usos = new ArrayList<>();
-    
-    @OneToMany(mappedBy = "usuario")
-    @JsonIgnore
     private List<Reserva> reservas = new ArrayList<>();
 
     public Usuario() {
@@ -74,7 +66,7 @@ public class Usuario {
 	public Usuario(Long id, String username, String email, String password, String rol, boolean aceptaTerminos,
 			int totalBolitos, Boolean deleted, boolean emailVerificado, String tokenVerificacion,
 			List<ParticipacionEvento> participaciones, List<Notificacion> notificaciones, List<CanjeRecompensa> canjes,
-			List<HistorialBolitos> historialBolitos, List<UsoPromocion> usos, List<Reserva> reservas) {
+			List<Reserva> reservas) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -89,8 +81,6 @@ public class Usuario {
 		this.participaciones = participaciones;
 		this.notificaciones = notificaciones;
 		this.canjes = canjes;
-		this.historialBolitos = historialBolitos;
-		this.usos = usos;
 		this.reservas = reservas;
 	}
 
@@ -172,22 +162,6 @@ public class Usuario {
 
 	public void setCanjes(List<CanjeRecompensa> canjes) {
 		this.canjes = canjes;
-	}
-
-	public List<HistorialBolitos> getHistorialBolitos() {
-		return historialBolitos;
-	}
-
-	public void setHistorialBolitos(List<HistorialBolitos> historialBolitos) {
-		this.historialBolitos = historialBolitos;
-	}
-
-	public List<UsoPromocion> getUsos() {
-		return usos;
-	}
-
-	public void setUsos(List<UsoPromocion> usos) {
-		this.usos = usos;
 	}
 
 	public List<Reserva> getReservas() {

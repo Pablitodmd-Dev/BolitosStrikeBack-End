@@ -5,10 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.webthymeleaf.entity.FranjaHoraria;
 import com.example.webthymeleaf.entity.Reserva;
 import com.example.webthymeleaf.entity.Usuario;
+import com.example.webthymeleaf.model.ReservaRequestDTO;
+import com.example.webthymeleaf.repository.FranjaHorariaRepository;
+import com.example.webthymeleaf.repository.PistaRepository;
 import com.example.webthymeleaf.repository.ReservaRepository;
+import com.example.webthymeleaf.repository.UsuarioRepository;
 
 @Service
 public class ReservaService {
@@ -18,6 +21,15 @@ public class ReservaService {
 
     @Autowired
     private FranjaHorariaService franjaHorariaService;
+    
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private PistaRepository pistaRepository;
+
+    @Autowired
+    private FranjaHorariaRepository franjaHorariaRepository;
     
     @Autowired
     private UsuarioService usuarioService;
@@ -39,9 +51,21 @@ public class ReservaService {
                 .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
     }
 
-    public Reserva createReserva(Reserva reserva) {
-        FranjaHoraria franja = franjaHorariaService.getFranjaById(reserva.getFranjaHoraria().getId());
-        reserva.setFranjaHoraria(franja);
+    public Reserva createReserva(ReservaRequestDTO dto) {
+        Reserva reserva = new Reserva();
+        reserva.setFecha(dto.getFecha());
+        reserva.setNumPersonas(dto.getNumPersonas());
+        reserva.setEstado(dto.getEstado() != null ? dto.getEstado() : "PENDIENTE");
+        reserva.setMetodoPago(dto.getMetodoPago());
+        reserva.setBolitosGenerados(dto.getBolitosGenerados());
+
+        reserva.setUsuario(usuarioRepository.findById(dto.getUsuarioId())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado")));
+        reserva.setPista(pistaRepository.findById(dto.getPistaId())
+                .orElseThrow(() -> new RuntimeException("Pista no encontrada")));
+        reserva.setFranjaHoraria(franjaHorariaRepository.findById(dto.getFranjaId())
+                .orElseThrow(() -> new RuntimeException("Franja no encontrada")));
+
         return reservaRepository.save(reserva);
     }
 
