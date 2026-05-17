@@ -32,9 +32,7 @@ public class ParticipacionEventoController {
     }
 
     @DeleteMapping("/usuario/{usuarioId}/evento/{eventoId}")
-    public ResponseEntity<Void> cancelarInscripcion(
-            @PathVariable Long usuarioId,
-            @PathVariable Long eventoId) {
+    public ResponseEntity<Void> cancelarInscripcion(@PathVariable Long usuarioId, @PathVariable Long eventoId) {
         participacionEventoService.cancelarInscripcion(usuarioId, eventoId);
         return ResponseEntity.noContent().build();
     }

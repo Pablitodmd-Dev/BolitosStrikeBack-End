@@ -36,9 +36,7 @@ public class SecurityConfig {
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.authorizeHttpRequests(auth -> auth
 					.requestMatchers("/auth/**").permitAll()
-					
-					.requestMatchers("/usuarios/perfil/**").authenticated()
-					.requestMatchers("/usuarios/historial/**").authenticated()
+
 					.requestMatchers(HttpMethod.POST, "/usuarios/worker").hasRole("ADMIN")
 					.requestMatchers(HttpMethod.GET, "/usuarios/**").authenticated()
 					.requestMatchers(HttpMethod.PUT, "/usuarios/**").authenticated()
@@ -70,9 +68,7 @@ public class SecurityConfig {
 					.requestMatchers(HttpMethod.DELETE, "/eventos/**").hasRole("ADMIN")
 
 					.requestMatchers("/participaciones", "/participaciones/**").authenticated()
-					.requestMatchers("/eventos/participar/**").authenticated()
 					.requestMatchers("/notificaciones/**").authenticated()
-					.requestMatchers("/admin/**").hasRole("ADMIN")
 
 					.anyRequest().authenticated()
 					)
